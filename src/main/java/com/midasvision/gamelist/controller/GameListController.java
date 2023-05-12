@@ -1,7 +1,8 @@
 package com.midasvision.gamelist.controller;
 
 import com.midasvision.gamelist.dto.GameDto;
-import com.midasvision.gamelist.dto.GameDtoId;
+import com.midasvision.gamelist.dto.GameListDto;
+import com.midasvision.gamelist.service.GameListService;
 import com.midasvision.gamelist.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/games")
-public class GameController {
+@RequestMapping("/lists")
+public class GameListController {
     @Autowired
-    private GameService service;
-    @GetMapping("/list")
-    public ResponseEntity<List<GameDto>> getALl() {
-        return ResponseEntity.ok(service.getAll());
+    private GameListService service;
+    @Autowired
+    private GameService gameService;
+    @GetMapping
+    public ResponseEntity<List<GameListDto>> listAll() {
+        return ResponseEntity.ok(service.listAll());
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<GameDtoId> getOne(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getOne(id));
+    @GetMapping("/{id}/games")
+    public ResponseEntity<List<GameDto>> listById(@PathVariable Long id) {
+        return ResponseEntity.ok(gameService.searchById(id));
     }
 }

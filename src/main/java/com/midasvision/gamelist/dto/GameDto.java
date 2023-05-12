@@ -1,6 +1,7 @@
 package com.midasvision.gamelist.dto;
 
 import com.midasvision.gamelist.entities.Game;
+import com.midasvision.gamelist.projections.GameProjection;
 import lombok.Data;
 import lombok.Getter;
 
@@ -19,5 +20,13 @@ public class GameDto {
         this.year = game.getYear();
         this.imgUrl = game.getImgUrl();
         this.shortDescription = game.getShortDescription();
+    }
+
+    public GameDto(GameProjection projection) {
+        this.id = projection.getId();
+        this.title = projection.getTitle();
+        this.year = projection.getYear();
+        this.imgUrl = projection.getImgUrl();
+        this.shortDescription = projection.getShortDescription();
     }
 }
