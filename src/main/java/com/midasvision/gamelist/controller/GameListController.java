@@ -2,14 +2,12 @@ package com.midasvision.gamelist.controller;
 
 import com.midasvision.gamelist.dto.GameDto;
 import com.midasvision.gamelist.dto.GameListDto;
+import com.midasvision.gamelist.dto.ReplacementDto;
 import com.midasvision.gamelist.service.GameListService;
 import com.midasvision.gamelist.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,10 @@ public class GameListController {
     @GetMapping("/{id}/games")
     public ResponseEntity<List<GameDto>> listById(@PathVariable Long id) {
         return ResponseEntity.ok(gameService.searchById(id));
+    }
+
+    @PostMapping("/{id}/replacement")
+    public void move(@RequestBody ReplacementDto dto, @PathVariable Long id) {
+        service.move(id, dto.getSourceIndex(), dto.getDestinatioIndex());
     }
 }
